@@ -36,11 +36,11 @@ npm run preview
 
 ## Deploy free on GitHub Pages
 
-1. Create a GitHub repository named `sketchsteps` (or adjust `base` in `frontend/vite.config.js` to match your repository name).
+1. Create a GitHub repository. The GitHub Actions build now detects the repository name automatically, so you do not need to edit the Vite base path.
 2. Upload the project files and push them to the `main` branch.
 3. In the repository, open **Settings → Pages** and choose **GitHub Actions** as the deployment source.
 4. The included `.github/workflows/deploy-pages.yml` workflow builds `frontend/` and publishes the `frontend/dist` folder automatically after a push to `main`.
-5. Your site will be available at `https://YOUR_USERNAME.github.io/sketchsteps/` after the workflow succeeds.
+5. Your site will be available at `https://YOUR_USERNAME.github.io/REPOSITORY_NAME/` after the workflow succeeds (unless the repository is named `YOUR_USERNAME.github.io`, in which case the site is at the domain root).
 
 For a user/organization site repository named `YOUR_USERNAME.github.io`, set `base: '/'` in `frontend/vite.config.js`.
 
@@ -50,3 +50,12 @@ For a user/organization site repository named `YOUR_USERNAME.github.io`, set `ba
 - Recent study previews are saved in this browser's `localStorage`. They do not sync between devices. Clearing site data removes them.
 - GitHub Pages hosting for an eligible public repository is free.
 - AI image generation, cloud sync, user accounts, and hosted backend features are **not included**. Those would require additional services and could cost money.
+
+
+## Troubleshooting a white page
+
+- Open the repository's **Actions** tab and confirm **Deploy SketchSteps to GitHub Pages** completed successfully. A failed build does not publish a working page.
+- Under **Settings → Pages**, choose **GitHub Actions** as the source.
+- Ensure the `.github/workflows/deploy-pages.yml` file is committed to the default branch, and that the frontend source files are inside `frontend/`.
+- The Vite configuration detects the repository name from `GITHUB_REPOSITORY`, preventing incorrect `/sketchsteps/` asset paths when the repository has another name.
+- After committing a fix, wait for the workflow to finish, then hard-refresh the published page.
